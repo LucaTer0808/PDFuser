@@ -1,0 +1,22 @@
+[project]
+name = "pdfuser"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Luca Nicolas Terfehr", email = "luca.terfehr@outlook.de" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "pypdf==7.0.0",
+]
+
+[project.scripts]
+pdfuse = "pdf_merge:main"
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["pdf_merge"]
