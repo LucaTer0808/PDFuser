@@ -31,7 +31,6 @@ def merge_pdfs(input1: Path, input2: Path, source: Path) -> int:
     writer = PdfWriter()
     writer.append(input1)
     writer.append(input2)
-    source.parent.mkdir(parents=True, exist_ok=True)
     with source.open("wb") as file:
         writer.write(file)
     return len(writer.pages)
@@ -117,6 +116,8 @@ def main(argv: list[str] | None = None) -> int:
         validate_pdf(args.input2)
         if args.source.resolve() in (args.input1.resolve(), args.input2.resolve()):
             raise ValueError("--source darf nicht auf eine Eingabedatei zeigen.")
+        if not args.source.parent.is_dir():
+            raise ValueError(f"Zielordner existiert nicht: {args.source.parent}")
         pages = merge_pdfs(args.input1, args.input2, args.source)
     except ValueError as error:
         print(f"Fehler: {error}", file=sys.stderr)
